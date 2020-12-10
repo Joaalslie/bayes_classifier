@@ -13,7 +13,7 @@ class PDF(ABC):
         pass
 
 
-class multivariate_normal(PDF):
+class multivariateNormal(PDF):
     """
         A class which represents the multivariate normal distribution.
     """
@@ -36,7 +36,7 @@ class multivariate_normal(PDF):
         pass
 
 
-class normal(PDF):
+class Normal(PDF):
     """
         A class which represents the singlevariate normal distribution.
     """
