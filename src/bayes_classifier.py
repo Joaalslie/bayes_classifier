@@ -40,3 +40,17 @@ class BayesClassifier():
             return np.argmax(predictions)
         else:
             raise Exception("Model has not been trained yet!")
+
+    def add_class(self, distribution, idx):
+        """
+
+        """
+        if isinstance(distribution, PDF):
+            # Check if idx exceeds list size (number of classes)
+            if not (idx < 0) or (idx > len(self.distributions) - 1):
+                self.distributions[idx] = distribution
+                self.added_classes += 1
+            else:
+                raise Exception("idx value is not supported")
+        else:
+            raise Exception("Distribution is not supported!")
