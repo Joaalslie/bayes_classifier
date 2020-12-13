@@ -45,7 +45,14 @@ class multivariateNormal(Distribution):
         """
 
         """
-        pass
+        if self.is_fit:
+            size = len(x)
+            x_mu = np.matrix(x - mu)
+            inv = np.matrix(sigma).I
+            log_det = np.linalg.slogdet(sigma)[1]
+            return -0.5 * (((size / 2) * (2 * np.pi)) + log_det + ((x_mu * inv * x_mu.T)))
+        else:
+            raise Exception("Distribution doesn't have all parameters set!")
 
 
 class Normal(Distribution):
