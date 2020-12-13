@@ -33,7 +33,8 @@ class multivariateNormal(Distribution):
         if self.is_fit:
             size = len(x)
             det = np.linalg.det(self.sigma)
-            norm_const = 1.0 / (np.power((2*np.pi), size / 2) * np.power(det, 0.5))
+            norm_const = 1.0 / np.power((2*np.pi), size / 2) * \
+                np.power(det, 0.5)
             x_mu = np.matrix(x - self.mu)
             inv = np.matrix(self.sigma).I
             result = math.pow(math.e, -0.5 * (x_mu * inv * x_mu.T))
@@ -50,7 +51,9 @@ class multivariateNormal(Distribution):
             x_mu = np.matrix(x - mu)
             inv = np.matrix(sigma).I
             log_det = np.linalg.slogdet(sigma)[1]
-            return -0.5 * (((size / 2) * (2 * np.pi)) + log_det + ((x_mu * inv * x_mu.T)))
+            val = ((size / 2) * (2 * np.pi)) \
+                + log_det + ((x_mu * inv * x_mu.T))
+            return -0.5 * val
         else:
             raise Exception("Distribution doesn't have all parameters set!")
 
@@ -63,13 +66,21 @@ class Normal(Distribution):
         """
 
         """
-        pass
+        self.is_fit = False
+
+        self.mu = None
+        self.sigma = None
 
     def pdf(self):
         """
 
         """
-        pass
+        if self.is_fit:
+            norm = 1 / np.sqrt(2 * np.pi * self.sigma)
+            exp = np.e**(-(((x - self.mu)**2) / (2 * self.sigma)))
+            return norm * exp
+        else:
+            raise Exception("Distribution doesn't have all parameters set!")
 
     def log_pdf(self):
         """
