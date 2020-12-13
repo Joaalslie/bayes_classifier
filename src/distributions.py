@@ -92,3 +92,11 @@ class Normal(Distribution):
             return norm - exp
         else:
             raise Exception("Distribution doesn't have all parameters set!")
+    
+    def fit(self, data):
+        """
+
+        """
+        self.mu = np.mean(data)
+        self.sigma = np.var(data)
+        self.is_fit = True
