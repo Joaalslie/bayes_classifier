@@ -42,7 +42,7 @@ class multivariateNormal(Distribution):
         else:
             raise Exception("Distribution doesn't have all parameters set!")
 
-    def log_pdf(self):
+    def log_pdf(self, x):
         """
 
         """
@@ -71,7 +71,7 @@ class Normal(Distribution):
         self.mu = None
         self.sigma = None
 
-    def pdf(self):
+    def pdf(self, x):
         """
 
         """
@@ -82,8 +82,13 @@ class Normal(Distribution):
         else:
             raise Exception("Distribution doesn't have all parameters set!")
 
-    def log_pdf(self):
+    def log_pdf(self, x):
         """
 
         """
-        pass
+        if self.is_fit:
+            norm = np.log(1 / (np.sqrt(2 * np.pi) * self.sigma))
+            exp = np.power(x - mu, 2) / (2 * np.power(self.sigma, 2))
+            return norm - exp
+        else:
+            raise Exception("Distribution doesn't have all parameters set!")
