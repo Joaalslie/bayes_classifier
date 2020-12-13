@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import numpy as np
 
 
-class PDF(ABC):
+class Distribution(ABC):
     """
         An abstract base class acting as parent-class for probability density
         functions. The main aim of the class is to ensure that classes
@@ -13,7 +13,7 @@ class PDF(ABC):
         pass
 
 
-class multivariateNormal(PDF):
+class multivariateNormal(Distribution):
     """
         A class which represents the multivariate normal distribution.
     """
@@ -36,7 +36,7 @@ class multivariateNormal(PDF):
         pass
 
 
-class Normal(PDF):
+class Normal(Distribution):
     """
         A class which represents the singlevariate normal distribution.
     """

@@ -1,6 +1,6 @@
 import numpy as np
 
-from pdf import PDF
+from distributions import Distribution
 
 
 class BayesClassifier():
@@ -45,7 +45,7 @@ class BayesClassifier():
         """
 
         """
-        if isinstance(distribution, PDF):
+        if isinstance(distribution, Distribution):
             # Check if idx exceeds list size (number of classes)
             if not (idx < 0) or (idx > len(self.distributions) - 1):
                 self.distributions[idx] = distribution
