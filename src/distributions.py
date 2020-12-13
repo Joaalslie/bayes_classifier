@@ -21,13 +21,25 @@ class multivariateNormal(Distribution):
         """
 
         """
-        pass
+        self.is_fit = False
 
-    def pdf(self):
+        self.mu = None
+        self.sigma = None
+
+    def pdf(self, x):
         """
 
         """
-        pass
+        if self.is_fit:
+            size = len(x)
+            det = np.linalg.det(self.sigma)
+            norm_const = 1.0 / (np.power((2*np.pi), size / 2) * np.power(det, 0.5))
+            x_mu = np.matrix(x - self.mu)
+            inv = np.matrix(self.sigma).I
+            result = math.pow(math.e, -0.5 * (x_mu * inv * x_mu.T))
+            return norm_const * result
+        else:
+            raise Exception("Distribution doesn't have all parameters set!")
 
     def log_pdf(self):
         """
