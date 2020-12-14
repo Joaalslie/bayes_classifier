@@ -56,6 +56,14 @@ class multivariateNormal(Distribution):
             return -0.5 * val
         else:
             raise Exception("Distribution doesn't have all parameters set!")
+    
+    def fit(self, data):
+        """
+
+        """
+        self.mu = np.mean(data, axis=0)
+        self.sigma = np.cov(data)
+        self.is_fit = True
 
 
 class Normal(Distribution):
