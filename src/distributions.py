@@ -9,7 +9,15 @@ class Distribution(ABC):
         inheriting it have implemented a pdf-method.
     """
     @abstractmethod
-    def pdf(self):
+    def pdf(self, x):
+        pass
+
+    @abstractmethod
+    def log_pdf(self, x):
+        pass
+
+    @abstractmethod
+    def fit(self, x):
         pass
 
 
