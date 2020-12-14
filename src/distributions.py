@@ -18,9 +18,6 @@ class multivariateNormal(Distribution):
         A class which represents the multivariate normal distribution.
     """
     def __init__(self):
-        """
-
-        """
         self.is_fit = False
 
         self.mu = None
@@ -71,9 +68,6 @@ class Normal(Distribution):
         A class which represents the singlevariate normal distribution.
     """
     def __init__(self):
-        """
-
-        """
         self.is_fit = False
 
         self.mu = None
@@ -100,11 +94,54 @@ class Normal(Distribution):
             return norm - exp
         else:
             raise Exception("Distribution doesn't have all parameters set!")
-    
+
     def fit(self, data):
         """
 
         """
         self.mu = np.mean(data)
         self.sigma = np.var(data)
+        self.is_fit = True
+
+
+class Poisson(Distribution):
+    """
+        A class which represents the singlevariate Poisson distribution
+    """
+    def __init__(self):
+        self.is_fit = False
+        self.alpha = 0
+
+    def pdf(self, x):
+        """
+
+        """
+        if self.is_fit:
+            if x >= 0:
+                enu = np.power(self.alpha, x) * np.power(np.e, -self.alpha)
+                den = np.math.factorial(x)
+                return num / den
+            else:
+                return 0
+        else:
+            raise Exception("Distribution doesn't have all parameters set!")
+
+    def log_pdf(self, x):
+        """
+
+        """
+        if self.is_fit:
+            if x >= 0:
+                return -np.log(np.math.factorial(x)) + \
+                    x * np.log(self.alpha) - self.alpha
+            else:
+                return 0
+        else:
+            raise Exception("Distribution doesn't have all parameters set!")
+
+    def fit(self, x):
+        """
+
+        """
+        self.alpha = np.mean(x)
         self.is_fit = True
