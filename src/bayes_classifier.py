@@ -38,16 +38,17 @@ class BayesClassifier():
 
         self.is_fit = True
 
-    def predict(self):
+    def predict(self, datapoint):
         """
 
         """
         if self.is_fit:
             predictions = []
             # Iterate over each distribution and make prediction
-            for distribution in self.distributions:
-                prediction = distribution.predict()
-                predictions.append(prediction)
+            for i, distribution in enumerate(self.distributions):
+                prior_prob = self.prior_probabilities[i]
+                prediction = distribution.pdf(datapoint)
+                predictions.append(prediction * prior_prob)
             
             # Convert prediction list to numpy array
             predictions = np.array(predictions)
