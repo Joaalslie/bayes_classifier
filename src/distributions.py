@@ -21,9 +21,32 @@ class Distribution(ABC):
         pass
 
 
+class SingleVariateDistribution(Distribution):
+    """
+        Parent class for single-variate distributions.
+    """
+    def plot_pdf(self, x_min, x_max, n=100):
+        """
+
+        """
+        x = np.linspace(x_min, x_max, n)
+        y = [self.pdf(datapoint) for datapoint in x]
+        plt.plot(x, y)
+        plt.show()
+    
+    def plot_log_pdf(self, x_min, x_max, n=100):
+        """
+
+        """
+        x = np.linspace(start, stop, n)
+        y = [self.log_pdf(datapoint) for datapoint in x]
+        plt.plot(x, y)
+        plt.show()
+
+
 class multivariateNormal(Distribution):
     """
-        A class which represents the multivariate normal distribution.
+        Represents the multivariate normal distribution.
     """
     def __init__(self):
         self.is_fit = False
@@ -71,9 +94,9 @@ class multivariateNormal(Distribution):
         self.is_fit = True
 
 
-class Normal(Distribution):
+class Normal(SingleVariateDistribution):
     """
-        A class which represents the singlevariate normal distribution.
+        Represents the singlevariate normal distribution.
     """
     def __init__(self):
         self.is_fit = False
@@ -112,9 +135,9 @@ class Normal(Distribution):
         self.is_fit = True
 
 
-class Poisson(Distribution):
+class Poisson(SingleVariateDistribution):
     """
-        A class which represents the singlevariate Poisson distribution
+        Represents the singlevariate Poisson distribution
     """
     def __init__(self):
         self.is_fit = False
