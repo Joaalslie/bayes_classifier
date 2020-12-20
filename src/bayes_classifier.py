@@ -9,9 +9,6 @@ class BayesClassifier():
 
     """
     def __init__(self, num_classes):
-        """
-
-        """
         self.num_classes = num_classes
         self.added_classes = 0
         self.is_fit = False
@@ -70,3 +67,14 @@ class BayesClassifier():
                 raise Exception("idx value is not supported")
         else:
             raise Exception("Distribution is not supported!")
+    
+    def remove_class(self, idx):
+        """
+
+        """
+        # Check if idx exceeds list size (number of classes)
+        if not (idx < 0) or (idx > len(self.distributions) - 1):
+            self.distributions[idx] = None
+            self.added_classes -= 1
+        else:
+            raise Exception("idx value is not supported")
