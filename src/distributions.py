@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import numpy as np
+import math
 
 
 class Distribution(ABC):
@@ -76,9 +77,9 @@ class MultivariateNormal(Distribution):
         """
         if self.is_fit:
             size = len(x)
-            x_mu = np.matrix(x - mu)
-            inv = np.matrix(sigma).I
-            log_det = np.linalg.slogdet(sigma)[1]
+            x_mu = np.matrix(x - self.mu)
+            inv = np.matrix(self.sigma).I
+            log_det = np.linalg.slogdet(self.sigma)[1]
             val = ((size / 2) * (2 * np.pi)) \
                 + log_det + ((x_mu * inv * x_mu.T))
             return -0.5 * val
@@ -90,7 +91,7 @@ class MultivariateNormal(Distribution):
 
         """
         self.mu = np.mean(data, axis=0)
-        self.sigma = np.cov(data)
+        self.sigma = np.cov(data.T)
         self.is_fit = True
 
 
