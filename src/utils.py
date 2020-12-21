@@ -16,4 +16,4 @@ def split_dataset(data, labels, num_classes):
         for i in range(num_classes):
             split_data[i] = np.array(split_data[i])
 
-        return split_data
+        return np.array(split_data)

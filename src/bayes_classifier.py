@@ -27,8 +27,8 @@ class BayesClassifier():
         total_size = len(data)
         # Separate dataset into smaller datasets by label
         split_data = split_dataset(data, labels, self.num_classes)
-        for i, distribution in enumerate(split_data.T):
-            self.distributions[i].fit(distribution)
+        for i, subset in enumerate(split_data):
+            self.distributions[i].fit(subset)
             # Compute prior probability for the class
             prior_prob = len(split_data) / total_size
             self.prior_probabilities[i] = prior_prob
@@ -44,7 +44,7 @@ class BayesClassifier():
             # Iterate over each distribution and make prediction
             for i, distribution in enumerate(self.distributions):
                 prior_prob = self.prior_probabilities[i]
-                prediction = distribution.pdf(datapoint)
+                prediction = distribution.log_pdf(datapoint)
                 predictions.append(prediction * prior_prob)
             
             # Convert prediction list to numpy array
@@ -53,6 +53,19 @@ class BayesClassifier():
             return np.argmax(predictions)
         else:
             raise Exception("Model has not been trained yet!")
+        
+    def accuracy(self, data, labels):
+        """
+
+        """
+        length = len(labels)
+        correct_predictions = 0
+        for datapoint, label in zip(data, labels):
+            prediction = self.predict(datapoint)
+            if prediction == label:
+                correct_predictions += 1
+
+        return correct_predictions / length
 
     def add_class(self, distribution, idx):
         """
