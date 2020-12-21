@@ -44,7 +44,7 @@ class SingleVariateDistribution(Distribution):
         plt.show()
 
 
-class multivariateNormal(Distribution):
+class MultivariateNormal(Distribution):
     """
         Represents the multivariate normal distribution.
     """

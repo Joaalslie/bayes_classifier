@@ -21,14 +21,14 @@ class BayesClassifier():
 
         """
         if self.added_classes != self.num_classes:
-            raise Exception("Model is not ready to train!" + \ 
+            raise Exception("Model is not ready to train!" + 
                 "All classes needs to be added!")
 
         total_size = len(data)
         # Separate dataset into smaller datasets by label
         split_data = split_dataset(data, labels, self.num_classes)
-        for i, distribution in enumerate(split_data):
-            self.distributions[i].fit(split_data.T)
+        for i, distribution in enumerate(split_data.T):
+            self.distributions[i].fit(distribution)
             # Compute prior probability for the class
             prior_prob = len(split_data) / total_size
             self.prior_probabilities[i] = prior_prob
