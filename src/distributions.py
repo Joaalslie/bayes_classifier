@@ -177,3 +177,35 @@ class Poisson(SingleVariateDistribution):
         """
         self.alpha = np.mean(x)
         self.is_fit = True
+
+
+class Gamma(SingleVariateDistribution):
+    """
+        Represents the singlevariate Gamma distribution
+    """
+    def __init__(self):
+        self.is_fit = False
+
+    def pdf(self, x):
+        """
+
+        """
+        if self.is_fit:
+            pass
+        else:
+            raise Exception("Distribution doesn't have all parameters set!")
+
+    def log_pdf(self, x):
+        """
+
+        """
+        if self.is_fit:
+            pass
+        else:
+            raise Exception("Distribution doesn't have all parameters set!")
+
+    def fit(self, x):
+        """
+
+        """
+        self.is_fit = True
