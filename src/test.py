@@ -1,5 +1,7 @@
 import unittest
 
+import distributions as dists
+
 
 class TestMultivariateNormal(unittest.TestCase):
     """
@@ -15,7 +17,10 @@ class TestMultivariateNormal(unittest.TestCase):
         """
 
         """
-        pass
+        dist = dists.MultivariateNormal()
+        # Call on pdf before training to invoke exception
+        self.assertRaises(Exception, dist.pdf, None)
+
     
     def test_log_pdf(self):
         """
@@ -44,7 +49,9 @@ class TestNormal(unittest.TestCase):
         """
 
         """
-        pass
+        dist = dists.Normal()
+        # Call on pdf before training to invoke exception
+        self.assertRaises(Exception, dist.pdf, None)
     
     def test_log_pdf(self):
         """
@@ -73,7 +80,9 @@ class TestPoisson(unittest.TestCase):
         """
 
         """
-        pass
+        dist = dists.Poisson()
+        # Call on pdf before training to invoke exception
+        self.assertRaises(Exception, dist.pdf, None)
     
     def test_log_pdf(self):
         """
@@ -86,3 +95,7 @@ class TestPoisson(unittest.TestCase):
 
         """
         pass
+
+
+if __name__ == '__main__':  
+    unittest.main()
