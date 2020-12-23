@@ -32,7 +32,9 @@ class TestMultivariateNormal(unittest.TestCase):
         """
 
         """
-        pass
+        dist = dists.MultivariateNormal()
+        # Call on logarithmic pdf before training to invoke exception
+        self.assertRaises(Exception, dist.log_pdf, None)
 
 
 class TestNormal(unittest.TestCase):
@@ -63,7 +65,9 @@ class TestNormal(unittest.TestCase):
         """
 
         """
-        pass
+        dist = dists.Normal()
+        # Call on logarithmic pdf before training to invoke exception
+        self.assertRaises(Exception, dist.log_pdf, None)
 
 
 class TestPoisson(unittest.TestCase):
@@ -94,7 +98,9 @@ class TestPoisson(unittest.TestCase):
         """
 
         """
-        pass
+        dist = dists.Poisson()
+        # Call on logarithmic pdf before training to invoke exception
+        self.assertRaises(Exception, dist.log_pdf, None)
 
 
 if __name__ == '__main__':  
