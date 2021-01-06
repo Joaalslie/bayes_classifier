@@ -55,6 +55,16 @@ class SingleVariateDistribution(Distribution):
         plt.show()
 
 
+class ManualEstimatorDistribution(SingleVariateDistribution):
+    """
+        Parent class for distribution which require one or more maximum
+        likelihood estimators to be set manually.
+    """
+    @abstractmethod
+    def set_estimators(self, *estimators):
+        pass
+
+
 class MultivariateNormal(Distribution):
     """
         Represents the multivariate normal distribution.
@@ -224,7 +234,7 @@ class Poisson(SingleVariateDistribution):
         self.is_fit = True
 
 
-class Gamma(SingleVariateDistribution):
+class Gamma(ManualEstimatorDistribution):
     """
         Represents the singlevariate Gamma distribution
     """
@@ -238,7 +248,7 @@ class Gamma(SingleVariateDistribution):
 
     def pdf(self, x):
         """
-        Compute singlevariate gamma log pdf based on given x value.
+        Compute singlevariate gamma pdf based on given x value.
 
         :param x: parameter value for gamma pdf
         :returns: the result of the gamma pdf
@@ -280,3 +290,12 @@ class Gamma(SingleVariateDistribution):
 
         self.beta = np.mean(x) / self.alpha
         self.is_fit = True
+
+    def set_estimators(self, *estimators):
+        """
+        Set the maximum likelihood estimator alpha manually.
+
+        :param *estimators: list of estimator values (contains only alpha)
+        :returns: None
+        """
+        self.alpha = estimators[0]
