@@ -71,6 +71,7 @@ class MultivariateNormal(Distribution):
 
         :param x: parameter value for multivariate normal pdf
         :returns: the result of the multivariate normal pdf
+        :raises Exception: Maximum likelihood estimators have not been set
         """
         if self.is_fit:
             size = len(x)
@@ -90,6 +91,7 @@ class MultivariateNormal(Distribution):
 
         :param x: parameter value for multivariate normal log pdf
         :returns: the result of the multivariate normal log pdf
+        :raises Exception: Maximum likelihood estimators have not been set
         """
         if self.is_fit:
             size = len(x)
@@ -131,6 +133,7 @@ class Normal(SingleVariateDistribution):
 
         :param x: parameter value for singlevariate normal pdf
         :returns: the result of the singlevariate normal pdf
+        :raises Exception: Maximum likelihood estimators have not been set
         """
         if self.is_fit:
             norm = 1 / np.sqrt(2 * np.pi * self.sigma)
@@ -145,6 +148,7 @@ class Normal(SingleVariateDistribution):
 
         :param x: parameter value for singlevariate normal pdf
         :returns: the result of the singlevariate normal log pdf
+        :raises Exception: Maximum likelihood estimators have not been set
         """
         if self.is_fit:
             norm = np.log(1 / (np.sqrt(2 * np.pi) * self.sigma))
@@ -180,6 +184,7 @@ class Poisson(SingleVariateDistribution):
 
         :param x: parameter value for poisson pdf
         :returns: the result of the poisson pdf
+        :raises Exception: Maximum likelihood estimators have not been set
         """
         if self.is_fit:
             if x >= 0:
@@ -197,6 +202,7 @@ class Poisson(SingleVariateDistribution):
 
         :param x: parameter value for poisson log pdf
         :returns: the result of the poisson pdf
+        :raises Exception: Maximum likelihood estimators have not been set
         """
         if self.is_fit:
             if x >= 0:
