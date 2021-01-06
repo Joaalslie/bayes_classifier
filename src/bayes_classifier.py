@@ -6,7 +6,9 @@ from utils import split_dataset
 
 class BayesClassifier():
     """
+    Represents a Bayes Classifier ML Model.
 
+    :param num_classes: number of classes in the model
     """
     def __init__(self, num_classes):
         self.num_classes = num_classes
@@ -18,7 +20,12 @@ class BayesClassifier():
 
     def fit(self, data, labels):
         """
+        Train the model based on the given data and labels.
 
+        :param data: dataset containing feature vectors to train the model on
+        :param labels: labels corresponding to the data provided
+        :returns: None
+        :raises Exception: All classes has not been added.
         """
         if self.added_classes != self.num_classes:
             raise Exception("Model is not ready to train!" + 
@@ -37,7 +44,11 @@ class BayesClassifier():
 
     def predict(self, datapoint):
         """
+        Make a class prediction of a single datapoint.
 
+        :param datapoint: vector to make prediction of
+        :returns: Index of predicted class in list of classes
+        :raises Exception: model needs to be trained before prediction
         """
         if self.is_fit:
             predictions = []
@@ -56,7 +67,11 @@ class BayesClassifier():
         
     def accuracy(self, data, labels):
         """
+        Classify data and compute the accuracy based on the labels provided.
 
+        :param data: dataset to compute accuracy of
+        :param labels: corresponding labels for the given dataset
+        :returns: accuracy of the Bayes Classifier
         """
         length = len(labels)
         correct_predictions = 0
@@ -69,7 +84,12 @@ class BayesClassifier():
 
     def add_class(self, distribution, idx):
         """
+        Add a new class to the list of classes.
 
+        :param distribution: distribution object of the given class
+        :param idx: index location for the new class
+        :returns: None
+        :raises Exception: index or distribution is not supported
         """
         if isinstance(distribution, Distribution):
             # Check if idx exceeds list size (number of classes)
@@ -83,7 +103,11 @@ class BayesClassifier():
     
     def remove_class(self, idx):
         """
+        Remove a class from the list of classes based on the given index.
 
+        :param idx: index of the class to remove from the distributions list
+        :returns: None
+        :raises Exception: idx param is either to small or large for the list
         """
         # Check if idx exceeds list size (number of classes)
         if not (idx < 0) or (idx > len(self.distributions) - 1):
