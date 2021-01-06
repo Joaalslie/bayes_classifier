@@ -58,5 +58,19 @@ class TestPoisson(unittest.TestCase):
         self.assertRaises(Exception, dist.log_pdf, None)
 
 
+class TestGamma(unittest.TestCase):
+    def test_pdf(self):
+        pass
+
+    def test_pdf_exception(self):
+        pass
+
+    def test_log_pdf(self):
+        pass
+
+    def test_log_pdf_exception(self):
+        pass
+
+
 if __name__ == '__main__':  
     unittest.main()
