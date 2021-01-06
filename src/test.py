@@ -70,6 +70,12 @@ class TestGamma(unittest.TestCase):
 
     def test_log_pdf_exception(self):
         pass
+    
+    def test_fit_exceptions(self):
+        pass
+    
+    def test_set_estimators(self):
+        pass
 
 
 if __name__ == '__main__':  
