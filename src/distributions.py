@@ -28,7 +28,12 @@ class SingleVariateDistribution(Distribution):
     """
     def plot_pdf(self, x_min, x_max, n=100):
         """
+        Create a plot of the pdf of the underlying distribution.
 
+        :param x_min: minimum x value for plotting
+        :param x_max: maximum x value for plotting
+        :param n: number of datapoints used for plot (standard set to 100) 
+        :returns: None
         """
         x = np.linspace(x_min, x_max, n)
         y = [self.pdf(datapoint) for datapoint in x]
@@ -37,7 +42,12 @@ class SingleVariateDistribution(Distribution):
     
     def plot_log_pdf(self, x_min, x_max, n=100):
         """
+        Create a plot of the log pdf of the underlying distribution.
 
+        :param x_min: minimum x value for plotting
+        :param x_max: maximum x value for plotting
+        :param n: number of datapoints used for plot (standard set to 100) 
+        :returns: None
         """
         x = np.linspace(start, stop, n)
         y = [self.log_pdf(datapoint) for datapoint in x]
@@ -57,7 +67,10 @@ class MultivariateNormal(Distribution):
 
     def pdf(self, x):
         """
+        Compute multivariate normal pdf based on given x value.
 
+        :param x: parameter value for multivariate normal pdf
+        :returns: the result of the multivariate normal pdf
         """
         if self.is_fit:
             size = len(x)
@@ -73,7 +86,10 @@ class MultivariateNormal(Distribution):
 
     def log_pdf(self, x):
         """
+        Compute multivariate normal log pdf based on given x value.
 
+        :param x: parameter value for multivariate normal log pdf
+        :returns: the result of the multivariate normal log pdf
         """
         if self.is_fit:
             size = len(x)
@@ -88,7 +104,11 @@ class MultivariateNormal(Distribution):
     
     def fit(self, data):
         """
+        Compute maximum likelihood estimators of the multivariate normal
+        distribution.
 
+        :param data: data used to compute estimators
+        :returns: None
         """
         self.mu = np.mean(data, axis=0)
         self.sigma = np.cov(data.T)
@@ -107,7 +127,10 @@ class Normal(SingleVariateDistribution):
 
     def pdf(self, x):
         """
+        Compute singlevariate normal pdf based on given x value.
 
+        :param x: parameter value for singlevariate normal pdf
+        :returns: the result of the singlevariate normal pdf
         """
         if self.is_fit:
             norm = 1 / np.sqrt(2 * np.pi * self.sigma)
@@ -118,7 +141,10 @@ class Normal(SingleVariateDistribution):
 
     def log_pdf(self, x):
         """
+        Compute singlevariate normal log pdf based on given x value.
 
+        :param x: parameter value for singlevariate normal pdf
+        :returns: the result of the singlevariate normal log pdf
         """
         if self.is_fit:
             norm = np.log(1 / (np.sqrt(2 * np.pi) * self.sigma))
@@ -129,7 +155,11 @@ class Normal(SingleVariateDistribution):
 
     def fit(self, data):
         """
+        Compute maximum likelihood estimators of the singlevariate normal 
+        distribution.
 
+        :param data: data used to compute estimators
+        :returns: None
         """
         self.mu = np.mean(data)
         self.sigma = np.var(data)
@@ -146,7 +176,10 @@ class Poisson(SingleVariateDistribution):
 
     def pdf(self, x):
         """
+        Compute singlevariate poisson pdf based on given x value.
 
+        :param x: parameter value for poisson pdf
+        :returns: the result of the poisson pdf
         """
         if self.is_fit:
             if x >= 0:
@@ -160,7 +193,10 @@ class Poisson(SingleVariateDistribution):
 
     def log_pdf(self, x):
         """
+        Compute singlevariate poisson log pdf based on given x value.
 
+        :param x: parameter value for poisson log pdf
+        :returns: the result of the poisson pdf
         """
         if self.is_fit:
             if x >= 0:
@@ -173,7 +209,10 @@ class Poisson(SingleVariateDistribution):
 
     def fit(self, x):
         """
+        Compute maximum likelihood estimators of the poisson distribution.
 
+        :param data: data used to compute estimators
+        :returns: None
         """
         self.alpha = np.mean(x)
         self.is_fit = True
