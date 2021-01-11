@@ -12,10 +12,9 @@ class TestMultivariateNormal(unittest.TestCase):
         # Call on pdf before training to invoke exception
         self.assertRaises(Exception, dist.pdf, None)
 
-    
     def test_log_pdf(self):
         pass
-    
+
     def test_log_pdf_exception(self):
         dist = dists.MultivariateNormal()
         # Call on logarithmic pdf before training to invoke exception
@@ -30,10 +29,10 @@ class TestNormal(unittest.TestCase):
         dist = dists.Normal()
         # Call on pdf before training to invoke exception
         self.assertRaises(Exception, dist.pdf, None)
-    
+
     def test_log_pdf(self):
         pass
-    
+
     def test_log_pdf_exception(self):
         dist = dists.Normal()
         # Call on logarithmic pdf before training to invoke exception
@@ -43,15 +42,21 @@ class TestNormal(unittest.TestCase):
 class TestPoisson(unittest.TestCase):
     def test_pdf(self):
         pass
-    
+
+    def test_pdf_negative_value(self):
+        pass
+
     def test_pdf_exception(self):
         dist = dists.Poisson()
         # Call on pdf before training to invoke exception
         self.assertRaises(Exception, dist.pdf, None)
-    
+
     def test_log_pdf(self):
         pass
-    
+
+    def test_log_pdf_negative_value(self):
+        pass
+
     def test_log_pdf_exception(self):
         dist = dists.Poisson()
         # Call on logarithmic pdf before training to invoke exception
@@ -70,10 +75,10 @@ class TestGamma(unittest.TestCase):
 
     def test_log_pdf_exception(self):
         pass
-    
+
     def test_fit_exceptions(self):
         pass
-    
+
     def test_set_estimators(self):
         pass
 
