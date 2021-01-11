@@ -10,11 +10,14 @@ class BayesClassifier():
 
     :param num_classes: number of classes in the model
     """
+    added_classes = 0
+    is_fit = False
+    # Decides if the classifier should use the log-pdf of each distribution
+    # when classifying
+    use_log_pdf = False
+
     def __init__(self, num_classes):
         self.num_classes = num_classes
-        self.added_classes = 0
-        self.is_fit = False
-
         self.distributions = [[] for _ in range(num_classes)]
         self.prior_probabilities = np.empty(num_classes)
 
@@ -55,7 +58,11 @@ class BayesClassifier():
             # Iterate over each distribution and make prediction
             for i, distribution in enumerate(self.distributions):
                 prior_prob = self.prior_probabilities[i]
-                prediction = distribution.log_pdf(datapoint)
+                if self.use_log_pdf:
+                    prediction = distribution.log_pdf(datapoint)
+                else:
+                    prediction = distribution.pdf(datapoint)
+                
                 predictions.append(prediction * prior_prob)
             
             # Convert prediction list to numpy array
@@ -64,7 +71,7 @@ class BayesClassifier():
             return np.argmax(predictions)
         else:
             raise Exception("Model has not been trained yet!")
-        
+
     def accuracy(self, data, labels):
         """
         Classify data and compute the accuracy based on the labels provided.
@@ -100,7 +107,7 @@ class BayesClassifier():
                 raise Exception("idx value is not supported")
         else:
             raise Exception("Distribution is not supported!")
-    
+
     def remove_class(self, idx):
         """
         Remove a class from the list of classes based on the given index.
@@ -115,3 +122,17 @@ class BayesClassifier():
             self.added_classes -= 1
         else:
             raise Exception("idx value is not supported")
+
+    def set_log_pdf(self):
+        """
+        Ensure that the logarithmic probability density function of each
+        estimated distribution is used when classifying.
+        """
+        self.use_log_pdf = True
+
+    def unset_log_pdf(self):
+        """
+        Ensure that the probability density function of each estimated
+        distribution is use when classifying.
+        """
+        self.use_log_pdf = False

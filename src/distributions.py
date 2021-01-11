@@ -39,7 +39,7 @@ class SingleVariateDistribution(Distribution):
         y = [self.pdf(datapoint) for datapoint in x]
         plt.plot(x, y)
         plt.show()
-    
+
     def plot_log_pdf(self, x_min, x_max, n=100):
         """
         Create a plot of the log pdf of the underlying distribution.
@@ -113,7 +113,7 @@ class MultivariateNormal(Distribution):
             return -0.5 * val
         else:
             raise Exception("Distribution doesn't have all parameters set!")
-    
+
     def fit(self, data):
         """
         Compute maximum likelihood estimators of the multivariate normal
