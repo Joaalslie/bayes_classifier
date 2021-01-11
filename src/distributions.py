@@ -5,9 +5,9 @@ import math
 
 class Distribution(ABC):
     """
-        An abstract base class acting as parent-class for probability density
-        functions. The main aim of the class is to ensure that classes
-        inheriting it have implemented a pdf-method.
+    An abstract base class acting as parent-class for probability density
+    functions. The main aim of the class is to ensure that classes
+    inheriting it have implemented a pdf-method.
     """
     @abstractmethod
     def pdf(self, x):
@@ -24,7 +24,7 @@ class Distribution(ABC):
 
 class SingleVariateDistribution(Distribution):
     """
-        Parent class for single-variate distributions.
+    Parent class for single-variate distributions.
     """
     def plot_pdf(self, x_min, x_max, n=100):
         """
@@ -57,8 +57,8 @@ class SingleVariateDistribution(Distribution):
 
 class ManualEstimatorDistribution(SingleVariateDistribution):
     """
-        Parent class for distribution which require one or more maximum
-        likelihood estimators to be set manually.
+    Parent class for distribution which require one or more maximum
+    likelihood estimators to be set manually.
     """
     @abstractmethod
     def set_estimators(self, *estimators):
@@ -67,7 +67,7 @@ class ManualEstimatorDistribution(SingleVariateDistribution):
 
 class MultivariateNormal(Distribution):
     """
-        Represents the multivariate normal distribution.
+    Represents the multivariate normal distribution.
     """
     def __init__(self):
         self.is_fit = False
@@ -129,7 +129,7 @@ class MultivariateNormal(Distribution):
 
 class Normal(SingleVariateDistribution):
     """
-        Represents the singlevariate normal distribution.
+    Represents the singlevariate normal distribution.
     """
     def __init__(self):
         self.is_fit = False
@@ -182,7 +182,7 @@ class Normal(SingleVariateDistribution):
 
 class Poisson(SingleVariateDistribution):
     """
-        Represents the singlevariate Poisson distribution
+    Represents the singlevariate Poisson distribution
     """
     def __init__(self):
         self.is_fit = False
@@ -236,7 +236,7 @@ class Poisson(SingleVariateDistribution):
 
 class Gamma(ManualEstimatorDistribution):
     """
-        Represents the singlevariate Gamma distribution
+    Represents the singlevariate Gamma distribution
     """
     def __init__(self):
         self.is_fit = False
