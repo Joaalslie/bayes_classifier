@@ -79,15 +79,19 @@ class BayesClassifier():
         :param data: dataset to compute accuracy of
         :param labels: corresponding labels for the given dataset
         :returns: accuracy of the Bayes Classifier
+        :raises Exception: model needs to be trained
         """
-        length = len(labels)
-        correct_predictions = 0
-        for datapoint, label in zip(data, labels):
-            prediction = self.predict(datapoint)
-            if prediction == label:
-                correct_predictions += 1
+        if self.is_fit:
+            length = len(labels)
+            correct_predictions = 0
+            for datapoint, label in zip(data, labels):
+                prediction = self.predict(datapoint)
+                if prediction == label:
+                    correct_predictions += 1
 
-        return correct_predictions / length
+            return correct_predictions / length
+        else:
+            raise Exception("Model has not been trained yet!")
 
     def add_class(self, distribution, idx):
         """
