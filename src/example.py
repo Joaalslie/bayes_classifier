@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 from bayes_classifier import BayesClassifier
-from distributions import MultivariateNormal
+from distribution import MultivariateNormal
 
 
 class Program():

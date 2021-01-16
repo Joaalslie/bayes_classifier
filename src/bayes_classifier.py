@@ -1,6 +1,6 @@
 import numpy as np
 
-from distributions import Distribution
+from distribution import Distribution
 from utils import split_dataset
 
 
