@@ -1,6 +1,6 @@
 import unittest
 
-from .bayes_classifier import BayesClassifier
+from bayes_classifier import BayesClassifier
 
 
 class TestBayesClassifier(unittest.TestCase):
