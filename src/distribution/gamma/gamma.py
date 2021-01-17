@@ -66,7 +66,7 @@ class Gamma(ManualEstimatorDistribution):
         :raises Exception: alpha is not a positive integer!
         """
         alpha = estimators[0]
-        if not isinstance(alpha, int) and alpha < 0:
+        if not isinstance(alpha, int) or alpha < 0:
             raise Exception("Alpha needs to be set as a positive integer!")
 
         self.alpha = alpha
