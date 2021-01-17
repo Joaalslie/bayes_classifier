@@ -53,11 +53,7 @@ class Gamma(ManualEstimatorDistribution):
 
         :param data: data used to compute estimators
         :returns: None
-        :raises Exception: alpha is not a positive integer!
         """
-        if not isinstance(self.alpha, int) and self.alpha < 0:
-            raise Exception("Alpha needs to be set as a positive integer!")
-
         self.beta = np.mean(x) / self.alpha
         self.is_fit = True
 
@@ -67,5 +63,10 @@ class Gamma(ManualEstimatorDistribution):
 
         :param *estimators: list of estimator values (contains only alpha)
         :returns: None
+        :raises Exception: alpha is not a positive integer!
         """
-        self.alpha = estimators[0]
+        alpha = estimators[0]
+        if not isinstance(alpha, int) and alpha < 0:
+            raise Exception("Alpha needs to be set as a positive integer!")
+
+        self.alpha = alpha
