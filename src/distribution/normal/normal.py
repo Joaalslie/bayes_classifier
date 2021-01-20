@@ -38,7 +38,7 @@ class Normal(SingleVariateDistribution):
         """
         if self.is_fit:
             norm = np.log(1 / (np.sqrt(2 * np.pi) * self.sigma))
-            exp = np.power(x - mu, 2) / (2 * np.power(self.sigma, 2))
+            exp = np.power(x - self.mu, 2) / (2 * np.power(self.sigma, 2))
             return norm - exp
         else:
             raise Exception("Distribution doesn't have all parameters set!")
