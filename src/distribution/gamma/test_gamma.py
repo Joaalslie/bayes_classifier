@@ -21,9 +21,7 @@ class TestGamma(unittest.TestCase):
     
     def test_pdf_negative_x(self):
         dist = self.create_pdf(2, 2)
-        y = dist.pdf(1)
-        # 2 decimals should be sufficient
-        assert np.round(y, 2) == 0.15
+        self.assertRaises(Exception, dist.pdf, -3)
 
     def test_pdf_exception(self):
         dist = Gamma()
@@ -35,6 +33,10 @@ class TestGamma(unittest.TestCase):
         y = dist.log_pdf(1)
         # 2 decimals should be sufficient
         assert np.round(y, 2) == -1.89
+    
+    def test_log_pdf_negative_x(self):
+        dist = self.create_pdf(2, 2)
+        self.assertRaises(Exception, dist.log_pdf, -3)
 
     def test_log_pdf_exception(self):
         dist = Gamma()
