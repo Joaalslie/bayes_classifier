@@ -24,6 +24,9 @@ class Gamma(ManualEstimatorDistribution):
         :returns: the result of the gamma pdf
         :raises Exception: Maximum likelihood estimators have not been set
         """
+        if x < 0:
+            raise Exception("input value x can't be a negative value!")
+
         if self.is_fit:
             return (1 / np.power(self.beta, self.alpha) * \
                 self.gamma(self.alpha)) * \
@@ -40,6 +43,9 @@ class Gamma(ManualEstimatorDistribution):
         :returns: the result of the gamma log pdf
         :raises Exception: Maximum likelihood estimators have not been set
         """
+        if x < 0:
+            raise Exception("input value x can't be a negative value!")
+
         if self.is_fit:
             return np.log(self.pdf(x))
         else:
