@@ -43,3 +43,15 @@ class TestPoisson(unittest.TestCase):
         dist = Poisson()
         # Call on logarithmic pdf before training to invoke exception
         self.assertRaises(Exception, dist.log_pdf, None)
+    
+    def test_fit_alpha(self):
+        dist = Poisson()
+        data = np.array([-4, -3, -2, 2, 3, 4])
+        dist.fit(data)
+        assert dist.alpha == 0
+    
+    def test_fit_is_fit(self):
+        dist = Poisson()
+        data = np.array([0])
+        dist.fit(data)
+        assert dist.is_fit == True
