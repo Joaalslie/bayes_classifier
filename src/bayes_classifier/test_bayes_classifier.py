@@ -1,14 +1,28 @@
 import unittest
 
 from bayes_classifier import BayesClassifier
+from distribution import Distribution, Normal
 
 
 class TestBayesClassifier(unittest.TestCase):
+    def test_num_classes(self):
+        # Ensure that num_classes is set upon construction
+        classifier = BayesClassifier(2)
+        assert classifier.num_classes == 2
+
     def test_set_log_pdf(self):
-        pass
+        # Ensure that set_log_pdf() function sets use_log_pdf attribute to
+        # False
+        classifier = BayesClassifier(2)
+        classifier.set_log_pdf()
+        assert classifier.use_log_pdf == True
 
     def test_unset_log_pdf(self):
-        pass
+        # Ensure that set_log_pdf() function sets use_log_pdf attribute to
+        # True
+        classifier = BayesClassifier(2)
+        classifier.unset_log_pdf()
+        assert classifier.use_log_pdf == False
 
     def test_remove_class(self):
         pass

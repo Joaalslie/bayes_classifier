@@ -1,7 +1,7 @@
 import numpy as np
 
 from distribution import Distribution
-from utils import split_dataset
+from .utils import split_dataset
 
 
 class BayesClassifier():
