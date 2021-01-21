@@ -19,11 +19,14 @@ class Poisson(SingleVariateDistribution):
         :returns: the result of the poisson pdf
         :raises Exception: Maximum likelihood estimators have not been set
         """
+        if x < 0:
+            raise Exception("input value x can't be a negative value!")
+
         if self.is_fit:
             if x >= 0:
                 enu = np.power(self.alpha, x) * np.power(np.e, -self.alpha)
                 den = np.math.factorial(x)
-                return num / den
+                return enu / den
             else:
                 return 0
         else:
@@ -37,6 +40,9 @@ class Poisson(SingleVariateDistribution):
         :returns: the result of the poisson log pdf
         :raises Exception: Maximum likelihood estimators have not been set
         """
+        if x < 0:
+            raise Exception("input value x can't be a negative value!")
+
         if self.is_fit:
             if x >= 0:
                 return -np.log(np.math.factorial(x)) + \
