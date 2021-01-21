@@ -41,9 +41,7 @@ class Gamma(ManualEstimatorDistribution):
         :raises Exception: Maximum likelihood estimators have not been set
         """
         if self.is_fit:
-            return (self.alpha - 1) * np.log(x) - (x / self.beta) - \
-                np.log(self.gamma(self.alpha)) + \
-                (self.alpha * (np.log(self.beta)))
+            return np.log(self.pdf(x))
         else:
             raise Exception("Distribution doesn't have all parameters set!")
 
