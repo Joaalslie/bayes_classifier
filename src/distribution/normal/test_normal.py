@@ -33,7 +33,7 @@ class TestNormal(unittest.TestCase):
         dist = self.create_pdf(0, 1)
         y = dist.log_pdf(1)
         assert np.round(y, 2) == -1.42
-    
+
     def test_log_negative(self):
         dist = self.create_pdf(0, 1)
         y = dist.log_pdf(-1)
@@ -50,14 +50,14 @@ class TestNormal(unittest.TestCase):
         data = np.array([-4, -3, -2, 2, 3, 4])
         dist.fit(data)
         assert dist.mu == 0
-    
+
     def test_fit_sigma(self):
         # Ensure that variance is correctly set after fit
         dist = Normal()
         data = np.array([-5, -4, -3, -2, 2, 3, 4, 5])
         dist.fit(data)
         assert dist.sigma == 13.5
-    
+
     def test_fit_is_fit(self):
         # Ensure that is_fit bool is correctly set after fit
         dist = Normal()
