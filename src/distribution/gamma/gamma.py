@@ -52,9 +52,11 @@ class Gamma(ManualEstimatorDistribution):
         :param data: data used to compute estimators
         :returns: None
         """
-        self.beta = np.mean(x) / self.alpha
         if self.alpha != None:
+            self.beta = np.mean(x) / self.alpha
             self.is_fit = True
+        else:
+            raise Exception("Alpha estimator needs to be set before training!")
 
     def set_estimators(self, *estimators):
         """
@@ -69,5 +71,3 @@ class Gamma(ManualEstimatorDistribution):
             raise Exception("Alpha needs to be set as a positive integer!")
 
         self.alpha = alpha
-        if self.beta != None:
-            self.is_fit = True
