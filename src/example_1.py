@@ -7,7 +7,8 @@ from distribution import MultivariateNormal
 
 class Program():
     """
-
+    Object responsible for running the program and controlling the overall
+    program flow.
     """
     def __init__(self):
         self.classifier = BayesClassifier(2)
@@ -18,7 +19,8 @@ class Program():
     
     def main(self):
         """
-
+        Overall main function of the program. Generates data, trains model
+        and measure accuracy of the model.
         """
         x_train, y_train = self.generate_multivariate_data(100, plot=True)
         x_test, y_test = self.generate_multivariate_data(50, plot=True)
@@ -29,7 +31,16 @@ class Program():
 
     def generate_multivariate_data(self, N, plot=True):
         """
+        Generate N multivariate gaussian samples
 
+        param N: total number of samples to generate
+        type N: int
+
+        param plot: True if the dataset is to be plotted
+        type plot: bool, optional
+
+        return: tuple of dataset and corresponding labels
+        rtype: tuple
         """
         mu1 = np.array([1, 1])
         mu2 = np.array([2.0, 2.0])
