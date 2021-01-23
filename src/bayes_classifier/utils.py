@@ -6,9 +6,13 @@ def split_dataset(data, labels, num_classes):
         Split dataset into smaller sets based on corresponding labels.
 
         :param data: list of feature vectors (dataset)
+        :type data: numpy.array
         :param labels: list of labels corresponding to the data
+        :type labels: list/numpy.array
         :param num_classes: number of classes in the dataset
+        :type num_classes: int
         :returns: list of split datasets with index corresponding to label
+        :rtype: numpy.array
         :raises Exception: number of labels isn't equal to actual labels
         """
         split_data = [[] for _ in range(num_classes)]
