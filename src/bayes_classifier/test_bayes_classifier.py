@@ -25,17 +25,33 @@ class TestBayesClassifier(unittest.TestCase):
         assert classifier.use_log_pdf == False
 
     def test_add_class(self):
-        pass
+        dist = Normal()
+        classifier = BayesClassifier(3)
+        classifier.add_class(dist, 0)
+        assert classifier.distributions[0] == dist
 
-    def test_invalid_idx_add_class(self):
+    def test_add_class_counter(self):
+        classifier = BayesClassifier(5)
+        classifier.add_class(Normal(), 0)
+        assert classifier.added_classes == 1
+
+    def test_negative_idx_add_class(self):
         # Ensure that exception is raised when trying to add distribution
-        # on an invalid idx in the add_class() function.
-        pass
+        # on a negative idx in the add_class() function.
+        classifier = BayesClassifier(7)
+        self.assertRaises(Exception, classifier.add_class, Normal(), -1)
+    
+    def test_exceeding_idx_add_class(self):
+        # Ensure that exception is raised when trying to add distribution
+        # on an exceeding idx in the add_class() function.
+        classifier = BayesClassifier(4)
+        self.assertRaises(Exception, classifier.add_class, Normal(), 5)
 
     def test_invalid_dist_add_class(self):
         # Ensure that exception is raised when trying to add invalid
         # class/distribution in the add_class() function.
-        pass
+        classifier = BayesClassifier(2)
+        self.assertRaises(Exception, classifier.add_class, 1, 1)
 
     def test_remove_class(self):
         # Ensure that distribution is removed from list after remove_class()
