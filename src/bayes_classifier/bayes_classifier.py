@@ -40,7 +40,7 @@ class BayesClassifier():
         for i, subset in enumerate(split_data):
             self.distributions[i].fit(subset)
             # Compute prior probability for the class
-            prior_prob = len(split_data) / total_size
+            prior_prob = len(subset) / total_size
             self.prior_probabilities[i] = prior_prob
 
         self.is_fit = True
