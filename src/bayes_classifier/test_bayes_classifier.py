@@ -66,19 +66,19 @@ class TestBayesClassifier(unittest.TestCase):
 
     def test_negative_idx_add_class(self):
         # Ensure that exception is raised when trying to add distribution
-        # on a negative idx in the add_class() function.
+        # on a negative idx in the add_class() function
         classifier = BayesClassifier(7)
         self.assertRaises(Exception, classifier.add_class, Normal(), -1)
     
     def test_exceeding_idx_add_class(self):
         # Ensure that exception is raised when trying to add distribution
-        # on an exceeding idx in the add_class() function.
+        # on an exceeding idx in the add_class() function
         classifier = BayesClassifier(4)
         self.assertRaises(Exception, classifier.add_class, Normal(), 5)
 
     def test_invalid_dist_add_class(self):
         # Ensure that exception is raised when trying to add invalid
-        # class/distribution in the add_class() function.
+        # class/distribution in the add_class() function
         classifier = BayesClassifier(2)
         self.assertRaises(Exception, classifier.add_class, 1, 1)
 
@@ -100,13 +100,13 @@ class TestBayesClassifier(unittest.TestCase):
 
     def test_remove_class_exception_negative_value(self):
         # Ensure that exception is raised when trying to remove class
-        # on negative invalid idx in the remove_class() function.
+        # on negative invalid idx in the remove_class() function
         classifier = BayesClassifier(2)
         self.assertRaises(Exception, classifier.remove_class, -1)
 
     def test_remove_class_exception_exceeding_idx(self):
         # Ensure that exception is raised when trying to remove class
-        # on negative invalid idx in the remove_class() function.
+        # on negative invalid idx in the remove_class() function
         classifier = BayesClassifier(2)
         self.assertRaises(Exception, classifier.remove_class, 2)
 
@@ -161,14 +161,24 @@ class TestBayesClassifier(unittest.TestCase):
 
     def test_predict_exception(self):
         # Ensure that exception is raised when trying to predict before
-        # training the model.
+        # training the model
         classifier = BayesClassifier(2)
         self.assertRaises(Exception, classifier.predict, 1)
 
     def test_accuracy(self):
-        pass
+        # Ensure that accuracy function measures accuracy correct after
+        # training the model
+        classifier = self.create_fit_model()
+        # Create test data that enforces mis-predictions
+        mu = np.array([1.0, 1.0])
+        sigma = np.array([[0.2, 0.0], [0.0, 0.2]])
+        x = np.random.multivariate_normal(mu, sigma, 10)
+        y = np.array([0, 0, 0, 0, 0, 0, 0, 1, 1, 1])
+        accuracy = classifier.accuracy(x, y)
+        assert accuracy == 0.7
 
     def test_accuracy_exception(self):
         # Ensure that exception is raised when trying to measure the accuracy
-        # before training the model.
-        pass
+        # before training the model
+        classifier = BayesClassifier(2)
+        self.assertRaises(Exception, classifier.accuracy, [1, 1], [0, 0])
