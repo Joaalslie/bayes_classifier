@@ -8,12 +8,23 @@ from distribution import Distribution, Normal, MultivariateNormal
 class TestBayesClassifier(unittest.TestCase):
     np.random.seed(1)
 
-    def create_model(self):
+    def create_fit_model(self):
         # Create model
         classifier = BayesClassifier(2)
         classifier.add_class(MultivariateNormal(), 0)
         classifier.add_class(MultivariateNormal(), 1)
-        # Create data
+        x, y = self.create_data()
+        # Train and return model
+        classifier.fit(x, y)
+        return classifier
+    
+    def create_unfit_model(self):
+        classifier = BayesClassifier(2)
+        classifier.add_class(MultivariateNormal(), 0)
+        classifier.add_class(MultivariateNormal(), 1)
+        return classifier
+
+    def create_data(self):
         mu1 = np.array([1.0, 1.0])
         mu2 = np.array([4.0, 4.0])
         sigma = np.array([[0.2, 0.0], [0.0, 0.2]])
@@ -21,9 +32,7 @@ class TestBayesClassifier(unittest.TestCase):
         x2 = np.random.multivariate_normal(mu2, sigma, 3)
         x = np.concatenate((x1, x2))
         y = np.array([0, 0, 0, 1, 1, 1])
-        # Train and return model
-        classifier.fit(x, y)
-        return classifier
+        return x, y
 
     def test_num_classes(self):
         # Ensure that num_classes is set upon construction
@@ -101,9 +110,39 @@ class TestBayesClassifier(unittest.TestCase):
         classifier = BayesClassifier(2)
         self.assertRaises(Exception, classifier.remove_class, 2)
 
+    def test_fit_is_fit(self):
+        # Ensure that is_fit parameter is set after training model
+        classifier = self.create_unfit_model()
+        x, y = self.create_data()
+        classifier.fit(x, y)
+        assert classifier.is_fit
+    
+    def test_fit_distributions_is_fit(self):
+        # Ensuret hat is_fit parameter is set in all distribution objects
+        # after training the model
+        classifier = self.create_unfit_model()
+        x, y = self.create_data()
+        classifier.fit(x, y)
+        for distribution in classifier.distributions:
+            assert distribution.is_fit
+
+    def test_fit_prior_probabilities(self):
+        # Ensure that prior probabilities is set after training model
+        classifier = self.create_unfit_model()
+        x, y = self.create_data()
+        classifier.fit(x, y)
+        assert np.sum(classifier.prior_probabilities) == 1
+
+    def test_fit_exception(self):
+        # Ensure that exception is raised when trying to train the model
+        # without adding all distributions/classes
+        classifier = BayesClassifier(2)
+        classifier.add_class(MultivariateNormal(), 1)
+        self.assertRaises(Exception, classifier.fit, [0, 0], [1, 1])
+
     def test_predict(self):
         # Ensure that the predict method works when using normal pdf
-        classifier = self.create_model()
+        classifier = self.create_fit_model()
         mu = np.array([1.0, 1.0])
         sigma = np.array([[0.2, 0.0], [0.0, 0.2]])
         x = np.random.multivariate_normal(mu, sigma, 1)
@@ -112,7 +151,7 @@ class TestBayesClassifier(unittest.TestCase):
 
     def test_predict_log_pdf(self):
         # Ensure that predict method works when using log pdf
-        classifier = self.create_model()
+        classifier = self.create_fit_model()
         classifier.set_log_pdf()
         mu = np.array([1.0, 1.0])
         sigma = np.array([[0.2, 0.0], [0.0, 0.2]])
@@ -124,7 +163,6 @@ class TestBayesClassifier(unittest.TestCase):
         # Ensure that exception is raised when trying to predict before
         # training the model.
         classifier = BayesClassifier(2)
-        assert classifier.is_fit != True
         self.assertRaises(Exception, classifier.predict, 1)
 
     def test_accuracy(self):
@@ -133,12 +171,4 @@ class TestBayesClassifier(unittest.TestCase):
     def test_accuracy_exception(self):
         # Ensure that exception is raised when trying to measure the accuracy
         # before training the model.
-        pass
-
-    def test_fit(self):
-        pass
-
-    def test_fit_exception(self):
-        # Ensure that exception is raised when trying to train the model
-        # without adding all distributions/classes
         pass
