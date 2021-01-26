@@ -27,9 +27,9 @@ class MultivariateNormal(Distribution):
             det = np.linalg.det(self.sigma)
             norm_const = 1.0 / np.power((2*np.pi), size / 2) * \
                 np.power(det, 0.5)
-            x_mu = np.matrix(x - self.mu)
-            inv = np.matrix(self.sigma).I
-            result = math.pow(math.e, -0.5 * (x_mu * inv * x_mu.T))
+            x_mu = x - self.mu
+            inv = np.linalg.inv(self.sigma)
+            result = math.pow(math.e, -0.5 * (x_mu @ inv @ x_mu.T))
             return norm_const * result
         else:
             raise Exception("Distribution doesn't have all parameters set!")
@@ -44,11 +44,11 @@ class MultivariateNormal(Distribution):
         """
         if self.is_fit:
             size = len(x)
-            x_mu = np.matrix(x - self.mu)
-            inv = np.matrix(self.sigma).I
+            x_mu = x - self.mu
+            inv = np.linalg.inv(self.sigma)
             log_det = np.linalg.slogdet(self.sigma)[1]
             val = ((size / 2) * (2 * np.pi)) \
-                + log_det + ((x_mu * inv * x_mu.T))
+                + log_det + ((x_mu @ inv @ x_mu.T))
             return -0.5 * val
         else:
             raise Exception("Distribution doesn't have all parameters set!")
