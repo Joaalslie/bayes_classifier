@@ -16,7 +16,7 @@ class Program():
         self.classifier.add_class(MultivariateNormal(), 1)
 
         self.main()
-    
+
     def main(self):
         """
         Overall main function of the program. Generates data, trains model
@@ -35,10 +35,8 @@ class Program():
 
         param N: total number of samples to generate
         type N: int
-
         param plot: True if the dataset is to be plotted
         type plot: bool, optional
-
         return: tuple of dataset and corresponding labels
         rtype: tuple
         """
@@ -64,7 +62,7 @@ class Program():
             plt.show()
 
         return x, y
-        
+
 
 if __name__ == "__main__":
     Program()
