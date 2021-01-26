@@ -1,10 +1,30 @@
+import numpy as np
 import unittest
 
 from bayes_classifier import BayesClassifier
-from distribution import Distribution, Normal
+from distribution import Distribution, Normal, MultivariateNormal
 
 
 class TestBayesClassifier(unittest.TestCase):
+    np.random.seed(1)
+
+    def create_model(self):
+        # Create model
+        classifier = BayesClassifier(2)
+        classifier.add_class(MultivariateNormal(), 0)
+        classifier.add_class(MultivariateNormal(), 1)
+        # Create data
+        mu1 = np.array([1.0, 1.0])
+        mu2 = np.array([4.0, 4.0])
+        sigma = np.array([[0.2, 0.0], [0.0, 0.2]])
+        x1 = np.random.multivariate_normal(mu1, sigma, 3)
+        x2 = np.random.multivariate_normal(mu2, sigma, 3)
+        x = np.concatenate((x1, x2))
+        y = np.array([0, 0, 0, 1, 1, 1])
+        # Train and return model
+        classifier.fit(x, y)
+        return classifier
+
     def test_num_classes(self):
         # Ensure that num_classes is set upon construction
         classifier = BayesClassifier(2)
@@ -82,12 +102,30 @@ class TestBayesClassifier(unittest.TestCase):
         self.assertRaises(Exception, classifier.remove_class, 2)
 
     def test_predict(self):
-        pass
+        # Ensure that the predict method works when using normal pdf
+        classifier = self.create_model()
+        mu = np.array([1.0, 1.0])
+        sigma = np.array([[0.2, 0.0], [0.0, 0.2]])
+        x = np.random.multivariate_normal(mu, sigma, 1)
+        prediction = classifier.predict(x)
+        assert prediction == 0
+
+    def test_predict_log_pdf(self):
+        # Ensure that predict method works when using log pdf
+        classifier = self.create_model()
+        classifier.set_log_pdf()
+        mu = np.array([1.0, 1.0])
+        sigma = np.array([[0.2, 0.0], [0.0, 0.2]])
+        x = np.random.multivariate_normal(mu, sigma, 1)
+        prediction = classifier.predict(x)
+        assert prediction == 0
 
     def test_predict_exception(self):
         # Ensure that exception is raised when trying to predict before
         # training the model.
-        pass
+        classifier = BayesClassifier(2)
+        assert classifier.is_fit != True
+        self.assertRaises(Exception, classifier.predict, 1)
 
     def test_accuracy(self):
         pass
