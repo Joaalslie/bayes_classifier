@@ -1,8 +1,6 @@
 # Bayes Classifier
-This repositoy contains the implementation of a Bayes Classifier, written from scratch. </br>
-Show how computational programming task (such as ml algorithms) can be implemented with an understandable,
-documented and user-friendly structure, ending up with a sort of API that's easy to maintain, and easy to 
-use.
+This repositoy contains the implementation of a Bayes Classifier, written from scratch with Numpy. </br>
+The goal of this small project was to write a simple ml algorithm with an understandable, documented and user-friendly structure.
 
 ## Distribution package:
 #### Single-variate distributions:
@@ -13,11 +11,9 @@ use.
 #### Multi-variate distributions:
  - Multivariate Normal Distribution
 
-### Creating a new distribution class:
-Create a new class which inherits the Distribution base class
-
-
-
 ## Running programs:
-### Running Example Programs:
-    $ python example_1.py
+### Running Example Programs (replace the 'x' with 1, 2 or 3):
+    $ python example_x.py
+
+### Running Tests:
+    $ python -m pytest
